@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Template.Data.Models;
-using Template.Web.Dto;
+using Template.Web.ViewModels;
 
 namespace Template.Web.Mapper
 {
@@ -10,7 +10,7 @@ namespace Template.Web.Mapper
     {
         public PostMapper()
         {
-            CreateMap<Post, PostDto>().ReverseMap();
+            CreateMap<Post, PostViewModel>().ReverseMap();
         }
 
         public int Id { get; set; }

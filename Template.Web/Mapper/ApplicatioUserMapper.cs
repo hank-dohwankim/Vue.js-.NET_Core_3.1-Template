@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Template.Data.Models;
-using Template.Web.Dto;
+using Template.Web.ViewModels;
 
 namespace Template.Web.Mapper
 {
@@ -12,7 +12,7 @@ namespace Template.Web.Mapper
     {
         public ApplicatioUserMapper()
         {
-            CreateMap<ApplicationUser, ApplicationUserDto>().ReverseMap();
+            CreateMap<ApplicationUser, ApplicationUserViewModel>().ReverseMap();
         }
 
         public string UserDescription { get; set; }

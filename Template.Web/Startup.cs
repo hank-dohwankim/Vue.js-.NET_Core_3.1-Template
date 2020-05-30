@@ -11,6 +11,9 @@ using Template.Web.Mapper;
 using AutoMapper;
 using Template.Data.Models;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace Template.Web
 {
@@ -31,13 +34,23 @@ namespace Template.Web
                 options.EnableDetailedErrors();
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 10;
+                options.Password.RequiredUniqueChars = 3;
+                options.SignIn.RequireConfirmedEmail = true;
+            }).AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddMvc(config => {
+                var policy = new AuthorizationPolicyBuilder()
+                                .RequireAuthenticatedUser()
+                                .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            }).AddXmlDataContractSerializerFormatters();
+
             services.AddControllers();
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddTransient<IEmailSender, EmailSender>();
-
-            services.AddControllersWithViews();
-            services.AddRazorPages();
 
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddAutoMapper(typeof(PostMapper));
@@ -45,6 +58,7 @@ namespace Template.Web
             //services.AddScoped<IPostReply, PostReplyService>();
             //services.AddScoped<IApplicationUser, userservi>();
 
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

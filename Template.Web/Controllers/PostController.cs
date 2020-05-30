@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Template.Data.Models;
 using Template.Services.Repository.IRepository;
-using Template.Web.Dto;
+using Template.Web.ViewModels;
 
 namespace Template.Web.Controllers
 {
@@ -31,10 +27,10 @@ namespace Template.Web.Controllers
         {
             _logger.LogInformation("Getting all posts");
             var posts = _postRepository.GetAllPosts();
-            var postDto = new List<PostDto>();
+            var postDto = new List<PostViewModel>();
             foreach(var post in posts)
             {
-                postDto.Add(_mapper.Map<PostDto>(post));
+                postDto.Add(_mapper.Map<PostViewModel>(post));
             }
             return Ok(posts);
         }
@@ -48,12 +44,12 @@ namespace Template.Web.Controllers
             {
                 return NotFound();
             }
-            var objDto = _mapper.Map<PostDto>(obj);
+            var objDto = _mapper.Map<PostViewModel>(obj);
             return Ok(objDto);
         }
 
         [HttpPost("/api/post")]
-        public IActionResult CreatePost([FromBody] PostDto postDto)
+        public IActionResult CreatePost([FromBody] PostViewModel postDto)
         {
             if (postDto == null)
             {
@@ -78,7 +74,7 @@ namespace Template.Web.Controllers
         }
 
         [HttpPatch("/api/post/{postId:int}", Name = "UpdatePost")]
-        public ActionResult UpdatePost(int postId, [FromBody] PostDto postDto)
+        public ActionResult UpdatePost(int postId, [FromBody] PostViewModel postDto)
         {
             _logger.LogInformation("Update post");
             if (postDto == null || postId != postDto.Id)

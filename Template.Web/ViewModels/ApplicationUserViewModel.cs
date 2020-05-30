@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Template.Data.Models;
 
-namespace Template.Web.Dto
+namespace Template.Web.ViewModels
 {
-    public class ApplicationUserDto
+    public class ApplicationUserViewModel
     {
         public string UserDescription { get; set; }
         public int Rating { get; set; }

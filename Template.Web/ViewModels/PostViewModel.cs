@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Template.Data.Models;
 
-namespace Template.Web.Dto
+namespace Template.Web.ViewModels
 {
-    public class PostDto
+    public class PostViewModel
     {
         [Key]
         public int Id { get; set; }
