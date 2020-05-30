@@ -1,18 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
+using WebPWrecover.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Template.Data;
-using Template.Services.Repository;
-using Template.Services.Repository.IRepository;
-using Template.Web.Mapper;
-using AutoMapper;
-using Template.Data.Models;
-using Microsoft.AspNetCore.Identity.UI.Services;
 
-namespace Template.Web
+namespace WebPWrecover
 {
     public class Startup
     {
@@ -27,24 +28,11 @@ namespace Template.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.EnableDetailedErrors();
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-            });
-            services.AddControllers();
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddTransient<IEmailSender, EmailSender>();
-
-            services.AddControllersWithViews();
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
-
-            services.AddScoped<IPostRepository, PostRepository>();
-            services.AddAutoMapper(typeof(PostMapper));
-            //services.AddScoped<ICategory, CategoryService>();
-            //services.AddScoped<IPostReply, PostReplyService>();
-            //services.AddScoped<IApplicationUser, userservi>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +41,13 @@ namespace Template.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
             }
 
             app.UseHttpsRedirection();
@@ -65,7 +60,6 @@ namespace Template.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
         }
