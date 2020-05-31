@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Template.Web.Controllers
 {
-    public class HomeController : Controller
+    [ApiController]
+    [Route("[controller]/[action]")]
+    public class HomeController : ControllerBase
     {
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("GetPosts", "Post");
         }
     }
 }

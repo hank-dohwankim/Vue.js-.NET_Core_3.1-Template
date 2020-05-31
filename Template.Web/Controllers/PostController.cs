@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Template.Data.Models;
@@ -23,6 +24,7 @@ namespace Template.Web.Controllers
         }
 
         [HttpGet("/api/post")]
+        [AllowAnonymous]
         public IActionResult GetPosts()
         {
             _logger.LogInformation("Getting all posts");

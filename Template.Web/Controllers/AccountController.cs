@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -16,24 +17,24 @@ namespace Template.Web.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IEmailSender _emailSender;
-        private readonly ILogger _logger;
+        //private readonly IEmailSender _emailSender;
+        //private readonly ILogger _logger;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender, ILogger logger)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,/* IEmailSender emailSender, /*ILogger logger*/ IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
-            _logger = logger;
+            //_emailSender = emailSender;
+            //_logger = logger;
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<IActionResult> Login([FromBody] LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
                 {
@@ -50,7 +51,7 @@ namespace Template.Web.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -60,45 +61,43 @@ namespace Template.Web.Controllers
             return RedirectToAction("index", "home");
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Register()
-        {
-            return View();
-        }
-
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register([FromBody] UserRegisterViewModel model/*, string returnUrl = null*/)
         {
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { 
                     UserName = model.Username, 
                     Email = model.Email, 
-                    CreatedOn = DateTime.Now, 
-                    IsActive = true 
+                    //CreatedOn = DateTime.Now, 
+                    //IsActive = true 
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    //_logger.LogInformation("User created a new account with password.");
 
-                    if (result.Succeeded)
-                    {
-                        if(_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-                        {
-                            return RedirectToAction("GetAllUsers", "Administration");
-                        }
-                    }
+                    //if (result.Succeeded)
+                    //{
+                    //    if(_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    //    {
+                    //        return RedirectToAction("GetAllUsers", "Administration");
+                    //    }
+                    //}
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return Ok("User created.");
 
-                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var confirmationLink = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = token }, Request.Scheme);
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+
+                    //var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //var confirmationLink = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = token }, Request.Scheme);
 
                     //await _signInManager.SignInAsync(user, isPersistent: false);
                     //_logger.LogInformation("User created a new account with password.");
@@ -106,12 +105,9 @@ namespace Template.Web.Controllers
                 }
 
                 //AddErrors(result);
+                // If we got this far, something failed, redisplay form
             }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            return RedirectToAction("Index", "Home");
         }
-
-        
     }
 }

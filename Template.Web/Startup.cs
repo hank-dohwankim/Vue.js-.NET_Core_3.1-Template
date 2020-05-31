@@ -38,7 +38,8 @@ namespace Template.Web
             {
                 options.Password.RequiredLength = 10;
                 options.Password.RequiredUniqueChars = 3;
-                options.SignIn.RequireConfirmedEmail = true;
+                //options.SignIn.RequireConfirmedEmail = true;
+                //options.SignIn.RequireConfirmedAccount = true;
             }).AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc(config => {
@@ -49,8 +50,6 @@ namespace Template.Web
             }).AddXmlDataContractSerializerFormatters();
 
             services.AddControllers();
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<IPostService, PostService>();
             services.AddAutoMapper(typeof(PostMapper));

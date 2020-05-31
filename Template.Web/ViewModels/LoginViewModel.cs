@@ -12,8 +12,11 @@ namespace Template.Web.ViewModels
     public class LoginViewModel
     {
         [Required]
+        public string Username { get; set; }
+
+        [Required]
         [EmailAddress]
-        [Remote(action:"IsEmailInUse", controller:"Account")]
+        //[Remote(action:"IsEmailInUse", controller:"Account")]
         //[ValidEmailDomain(allowedDomain: "", ErrorMessage = "")]
         public string Email { get; set; }
 

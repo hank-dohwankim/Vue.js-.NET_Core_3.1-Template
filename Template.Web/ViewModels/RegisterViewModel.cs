@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Template.Web.ViewModels
 {
-    public class RegisterViewModel
+    public class UserRegisterViewModel
     {
         [Required]
         [EmailAddress]
