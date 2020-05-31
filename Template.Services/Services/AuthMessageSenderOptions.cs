@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Template.Services.Repository
+namespace Template.Services.Services
 {
     public class AuthMessageSenderOptions
     {

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Template.Data.Models;
-using Template.Services.Repository.IRepository;
+using Template.Services.Services.IServices;
 
 namespace Template.Web.Controllers
 {

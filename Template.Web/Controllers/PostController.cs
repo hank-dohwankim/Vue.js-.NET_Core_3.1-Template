@@ -3,7 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Template.Data.Models;
-using Template.Services.Repository.IRepository;
+using Template.Services.Services.IServices;
 using Template.Web.ViewModels;
 
 namespace Template.Web.Controllers
@@ -12,10 +12,10 @@ namespace Template.Web.Controllers
     public class PostController : ControllerBase
     {
         private readonly ILogger<PostController> _logger;
-        private readonly IPostRepository _postRepository;
+        private readonly IPostService _postRepository;
         private readonly IMapper _mapper;
 
-        public PostController(ILogger<PostController> logger, IPostRepository postRepository, IMapper mapper)
+        public PostController(ILogger<PostController> logger, IPostService postRepository, IMapper mapper)
         {
             _logger = logger;
             _postRepository = postRepository;

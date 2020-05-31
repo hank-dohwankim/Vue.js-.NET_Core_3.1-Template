@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using Template.Data;
 using Template.Data.Models;
-using Template.Services.Repository.IRepository;
+using Template.Services.Services.IServices;
 
-namespace Template.Services.Repository
+namespace Template.Services.Services
 {
-    public class PostRepository : IPostRepository
+    public class PostService : IPostService
     {
         private readonly ApplicationDbContext _db;
 
-        public PostRepository(ApplicationDbContext db)
+        public PostService(ApplicationDbContext db)
         {
             _db = db;
         }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Template.Data.Models;
 
-namespace Template.Services.Repository.IRepository
+namespace Template.Services.Services.IServices
 {
-    public interface IPostRepository
+    public interface IPostService
     {
         //int GetReplyCount(int id);
         //bool PostExists(string title);

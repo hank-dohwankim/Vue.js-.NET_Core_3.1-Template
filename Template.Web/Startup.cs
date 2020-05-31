@@ -5,8 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Template.Data;
-using Template.Services.Repository;
-using Template.Services.Repository.IRepository;
+using Template.Services.Services;
+using Template.Services.Services.IServices;
 using Template.Web.Mapper;
 using AutoMapper;
 using Template.Data.Models;
@@ -52,7 +52,7 @@ namespace Template.Web
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IPostService, PostService>();
             services.AddAutoMapper(typeof(PostMapper));
             //services.AddScoped<ICategory, CategoryService>();
             //services.AddScoped<IPostReply, PostReplyService>();
