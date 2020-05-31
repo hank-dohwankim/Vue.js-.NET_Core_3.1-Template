@@ -5,8 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Template.Data;
-using Template.Services.Services;
-using Template.Services.Services.IServices;
+using Template.Services.Repository;
+using Template.Services.Repository.IRepository;
 using Template.Web.Mapper;
 using AutoMapper;
 using Template.Data.Models;
@@ -51,7 +51,7 @@ namespace Template.Web
 
             services.AddControllers();
 
-            services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IPostRepository, PostRepository>();
             services.AddAutoMapper(typeof(PostMapper));
             //services.AddScoped<ICategory, CategoryService>();
             //services.AddScoped<IPostReply, PostReplyService>();

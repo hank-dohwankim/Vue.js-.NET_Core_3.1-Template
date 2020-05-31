@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Template.Data.Models;
-using Template.Services.Services.IServices;
+using Template.Services.Repository.IRepository;
 
 namespace Template.Web.Controllers
 {
@@ -15,10 +15,10 @@ namespace Template.Web.Controllers
     public class ProfileController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IApplicationUser _userService;
+        private readonly IAppUserRepository _userService;
         private readonly IConfiguration _configuration;
 
-        public ProfileController(UserManager<ApplicationUser> userManager, IApplicationUser userService, IConfiguration configuration)
+        public ProfileController(UserManager<ApplicationUser> userManager, IAppUserRepository userService, IConfiguration configuration)
         {
             _userManager = userManager;
             _userService = userService;

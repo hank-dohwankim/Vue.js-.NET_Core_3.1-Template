@@ -2,18 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Template.Data;
 using Template.Data.Models;
-using Template.Services.Services.IServices;
+using Template.Services.Repository.IRepository;
 
-namespace Template.Services.Services
+namespace Template.Services.Repository
 {
-    public class PostService : IPostService
+    public class PostRepository : IPostRepository
     {
         private readonly ApplicationDbContext _db;
 
-        public PostService(ApplicationDbContext db)
+        public PostRepository(ApplicationDbContext db)
         {
             _db = db;
         }

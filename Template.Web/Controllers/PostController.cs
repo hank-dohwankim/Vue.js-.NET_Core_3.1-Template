@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Template.Data.Models;
-using Template.Services.Services.IServices;
+using Template.Services.Repository.IRepository;
 using Template.Web.ViewModels;
 
 namespace Template.Web.Controllers
@@ -13,10 +13,10 @@ namespace Template.Web.Controllers
     public class PostController : ControllerBase
     {
         private readonly ILogger<PostController> _logger;
-        private readonly IPostService _postRepository;
+        private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
 
-        public PostController(ILogger<PostController> logger, IPostService postRepository, IMapper mapper)
+        public PostController(ILogger<PostController> logger, IPostRepository postRepository, IMapper mapper)
         {
             _logger = logger;
             _postRepository = postRepository;

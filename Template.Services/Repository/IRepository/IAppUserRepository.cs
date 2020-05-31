@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Template.Data.Models;
 
-namespace Template.Services.Services.IServices
+namespace Template.Services.Repository.IRepository
 {
-    public interface IApplicationUser
+    public interface IAppUserRepository
     {
         ApplicationUser GetById(string userId);
         IEnumerable<ApplicationUser> GetAll();
