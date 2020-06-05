@@ -11,7 +11,7 @@ namespace Template.Services.Repository.IRepository
         IEnumerable<ApplicationUser> GetAll();
 
         ServiceResponse<ApplicationUser> CreateUser(ApplicationUser user);
-        ServiceResponse<ApplicationUser> UpdateUserRating(string userId, Type type);
+        ServiceResponse<ApplicationUser> UpdateUser(string userId, Type type);
         ServiceResponse<ApplicationUser> Deactivate(ApplicationUser user);
     }
 }

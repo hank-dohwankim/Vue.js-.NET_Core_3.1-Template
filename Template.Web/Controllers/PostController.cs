@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,10 +26,10 @@ namespace Template.Web.Controllers
 
         [HttpGet("/api/post")]
         [AllowAnonymous]
-        public IActionResult GetPosts()
+        public async Task<IActionResult> GetPosts()
         {
             _logger.LogInformation("Getting all posts");
-            var posts = _postRepository.GetAllPosts();
+            var posts = await _postRepository.GetAllPosts();
             var postDto = new List<PostViewModel>();
             foreach(var post in posts)
             {
@@ -51,6 +52,7 @@ namespace Template.Web.Controllers
         }
 
         [HttpPost("/api/post")]
+        [AllowAnonymous] // Need to be deleted in production 
         public IActionResult CreatePost([FromBody] PostViewModel postDto)
         {
             if (postDto == null)
@@ -58,11 +60,11 @@ namespace Template.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (_postRepository.GetPostById(postDto.Id) != null)
-            {
-                ModelState.AddModelError("", "Post already exists!");
-                return StatusCode(404, ModelState);
-            }
+            //if (_postRepository.GetPostById(postDto.Id) != null)
+            //{
+            //    ModelState.AddModelError("", "Post already exists!");
+            //    return StatusCode(404, ModelState);
+            //}
 
             var postObj = _mapper.Map<Post>(postDto);
 
@@ -76,6 +78,7 @@ namespace Template.Web.Controllers
         }
 
         [HttpPatch("/api/post/{postId:int}", Name = "UpdatePost")]
+        [AllowAnonymous] // Delete in production
         public ActionResult UpdatePost(int postId, [FromBody] PostViewModel postDto)
         {
             _logger.LogInformation("Update post");
@@ -97,6 +100,7 @@ namespace Template.Web.Controllers
 
 
         [HttpDelete("/api/post/{postId:int}", Name = "DeletePost")]
+        [AllowAnonymous] // Delete in production
         public IActionResult DeletePost(int postId)
         {
             _logger.LogInformation("Delete post");

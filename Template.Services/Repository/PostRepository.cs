@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Template.Data;
 using Template.Data.Models;
 using Template.Services.Repository.IRepository;
@@ -21,7 +22,7 @@ namespace Template.Services.Repository
         {
             try
             {
-                _db.Posts.Add(post);
+                //_db.Posts.Add(post);
 
                 var newPost = new Post
                 {
@@ -224,12 +225,12 @@ namespace Template.Services.Repository
             }
         }
 
-        public IEnumerable<Post> GetAllPosts()
+        public async Task<IEnumerable<Post>> GetAllPosts()
         {
-           return _db.Posts
+           return await _db.Posts
               .Include(post => post.User)
               .Include(post => post.Replies).ThenInclude(reply => reply.User)
-              .Include(post => post.Category);
+              .Include(post => post.Category).ToListAsync();
         }
 
         public Post GetPostById(int postId)
@@ -248,9 +249,9 @@ namespace Template.Services.Repository
                 category.Posts.Where(post => post.Title.Contains(searchQuery) || post.Content.Contains(searchQuery));
         }
 
-        public IEnumerable<Post> GetLatestPosts(int categoryId)
+        public async Task<IEnumerable<Post>> GetLatestPosts(int categoryId)
         {
-            return GetAllPosts().OrderByDescending(post => post.CreatedOn).Take(categoryId);
+            return GetAllPosts().Result.OrderByDescending(post => post.CreatedOn).Take(categoryId);
         }
 
         public IEnumerable<Post> GetPostsByCategory(int categId)

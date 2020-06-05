@@ -12,7 +12,6 @@ namespace Template.Data.Models
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
 
-
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         [MaxLength(100)]

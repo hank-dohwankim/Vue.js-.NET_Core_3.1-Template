@@ -9,6 +9,8 @@ namespace Template.Data.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public string TagName { get; set; }
+        public virtual Post Post { get; set; }
     }
 }

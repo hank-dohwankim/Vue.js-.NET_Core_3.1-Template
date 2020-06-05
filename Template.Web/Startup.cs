@@ -10,7 +10,6 @@ using Template.Services.Repository.IRepository;
 using Template.Web.Mapper;
 using AutoMapper;
 using Template.Data.Models;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -34,6 +33,7 @@ namespace Template.Web
                 options.EnableDetailedErrors();
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddCors();
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 10;
@@ -67,6 +67,18 @@ namespace Template.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(
+                builder => builder
+                .WithOrigins(
+                    "http://localhost:8080",
+                    "http://localhost:8081",
+                    "http://localhost:8082"
+                    )
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+            );
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

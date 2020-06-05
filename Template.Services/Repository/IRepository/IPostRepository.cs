@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Template.Data.Models;
 
 namespace Template.Services.Repository.IRepository
@@ -16,10 +17,10 @@ namespace Template.Services.Repository.IRepository
 
         Post GetPostById(int postId);
         
-        IEnumerable<Post> GetAllPosts();
+        Task<IEnumerable<Post>> GetAllPosts();
         IEnumerable<Post> GetPostsByCategory(int categId);
         IEnumerable<Post> GetPostsByUserId(string userId);
-        IEnumerable<Post> GetLatestPosts(int categoryId);
+        Task<IEnumerable<Post>> GetLatestPosts(int categoryId);
         IEnumerable<Post> GetFilteredPosts(Category category, string searchQuery);
 
         ServiceResponse<Post> CreatePost(Post post);
