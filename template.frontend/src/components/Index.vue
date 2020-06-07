@@ -1,27 +1,37 @@
 <template>
-  <div class="index container">
-    <div class="card" v-for="post in posts" :key="post.id">
-      <div class="card-content">
-        <!-- <a href="#" data-target="dropdown1">
+  <div>
+    <ul class="btnList container">
+      <li>
+        <router-link :to="{name: 'AddPost'}">
+          <div id="btnAddPost" class="btn waves-effect waves-light">
+            Add New Post
+            <i class="material-icons right">send</i>
+          </div>
+        </router-link>
+      </li>
+    </ul>
+    <div class="index container">
+      <div class="card" v-for="post in posts" :key="post.id">
+        <div class="card-content">
+          <!-- <a href="#" data-target="dropdown1">
           <i class="material-icons edit" @click="editPost(post.id)">edit</i>
         </a>
-        <i class="material-icons delete" @click="deletePost(post.id)">delete</i>-->
-        <h4 class="category indigo-text">{{ post.category }}</h4>
-        <h2 class="title indigo-text">{{ post.title }}</h2>
-        <p class="indigo-text">{{ post.content }}</p>
-        <ul class="tags">
-          <li v-for="(tag, index) in post.tags" :key="index">
-            <span class="chip">{{ tag }}</span>
-          </li>
-        </ul>
+          <i class="material-icons delete" @click="deletePost(post.id)">delete</i>-->
+          <h4 class="category indigo-text">{{ post.category }}</h4>
+          <h2 class="title indigo-text">{{ post.title }}</h2>
+          <p class="indigo-text">{{ post.content }}</p>
+          <ul class="tags">
+            <li v-for="(tag, index) in post.tags" :key="index">
+              <span class="chip">{{ tag.tagName }}</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "Index",
   data() {
@@ -30,14 +40,14 @@ export default {
     };
   },
   methods: {
-    deletePost(id) {
-      this.posts = this.posts.filter(post => {
-        return post.id != id;
-      });
-    }
+    // deletePost(id) {
+    //   this.posts = this.posts.filter(post => {
+    //     return post.id != id;
+    //   });
+    // }
   },
   mounted() {
-    axios.get("https://localhost:44371/api/post").then(result => {
+    this.$axios.get("https://localhost:44371/api/post").then(result => {
       console.log(result);
       this.posts = result.data;
     });
@@ -51,6 +61,10 @@ export default {
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 30px;
   margin-top: 60px;
+}
+
+.index .card {
+  cursor: pointer;
 }
 
 .index .title {
@@ -85,5 +99,10 @@ export default {
   right: 10px;
   cursor: pointer;
   color: #aaa;
+}
+
+.btnList #btnAddPost {
+  margin: 30px 0px 20px 0px;
+  float: right;
 }
 </style>

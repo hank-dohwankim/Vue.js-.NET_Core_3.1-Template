@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,9 +20,9 @@ namespace Template.Web.ViewModels
         public string Content { get; set; }
         public bool IsComplete { get; set; }
 
+        public IList<Tag> Tags { get; set; }
         public virtual ApplicationUser User { get; set; }
         public virtual Category Category { get; set; }
         public virtual IEnumerable<PostReply> Replies { get; set; }
-        public virtual IEnumerable<Tag> Tags { get; set; }
     }
 }

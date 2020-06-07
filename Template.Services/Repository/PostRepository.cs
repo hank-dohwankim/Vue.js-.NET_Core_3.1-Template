@@ -22,8 +22,6 @@ namespace Template.Services.Repository
         {
             try
             {
-                //_db.Posts.Add(post);
-
                 var newPost = new Post
                 {
                     Category = post.Category,
@@ -229,6 +227,7 @@ namespace Template.Services.Repository
         {
            return await _db.Posts
               .Include(post => post.User)
+              .Include(post => post.Tags)
               .Include(post => post.Replies).ThenInclude(reply => reply.User)
               .Include(post => post.Category).ToListAsync();
         }

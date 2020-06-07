@@ -1,6 +1,14 @@
 <template>
   <nav class="nav-extended">
     <div class="nav-wrapper">
+      <ul>
+        <li>
+          <router-link :to="{name: 'Index'}">
+            <!-- <router-link path="/"> -->
+            <div>Home</div>
+          </router-link>
+        </li>
+      </ul>
       <div class="brand-logo center">
         <ul id="nav-mobile" class="right hid-on-med-and-down">
           <li>
@@ -34,3 +42,4 @@ export default {
 
 <style scoped>
 </style>
+

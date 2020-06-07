@@ -13,6 +13,7 @@ using Template.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Newtonsoft.Json;
 
 namespace Template.Web
 {
@@ -48,8 +49,6 @@ namespace Template.Web
                                 .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             }).AddXmlDataContractSerializerFormatters();
-
-            services.AddControllers();
 
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddAutoMapper(typeof(PostMapper));
