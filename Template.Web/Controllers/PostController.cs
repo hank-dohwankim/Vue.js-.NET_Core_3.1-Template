@@ -39,6 +39,7 @@ namespace Template.Web.Controllers
         }
 
         [HttpGet("/api/post/{postId:int}", Name = "GetPostById")]
+        [AllowAnonymous]
         public ActionResult GetPostById(int postId)
         {
             _logger.LogInformation("Getting post by id");

@@ -16,6 +16,16 @@ export default new Router({
       path: "/add-post",
       name: "AddPost",
       component: () => import("@/components/post/AddPost") //AddPost Lazy Loading
+    },
+    {
+      path: "/edit-post/:post_id",
+      name: "EditPost",
+      component: () => import("@/components/post/EditPost")
+    },
+    {
+      path: "/post-detail/:post_id",
+      name: "PostDetail",
+      component: () => import("@/components/post/PostDetail")
     }
   ]
 });

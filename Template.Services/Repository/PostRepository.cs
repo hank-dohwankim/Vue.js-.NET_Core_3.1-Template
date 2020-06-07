@@ -59,11 +59,8 @@ namespace Template.Services.Repository
         {
             try
             {
-                _db.Posts.Add(post);
-
                 var newPost = new Post
                 {
-                    Id = post.Id,
                     Category = post.Category,
                     Tags = post.Tags,
                     CreatedOn = DateTime.UtcNow,
@@ -237,6 +234,7 @@ namespace Template.Services.Repository
             return _db.Posts.Where(post => post.Id == postId)
                   .Include(post => post.Category)
                   .Include(post => post.User)
+                  .Include(post => post.Tags)
                   .Include(post => post.Replies)
                   .ThenInclude(reply => reply.User)
                   .FirstOrDefault();

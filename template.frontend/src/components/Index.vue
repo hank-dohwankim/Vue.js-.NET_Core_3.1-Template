@@ -12,20 +12,22 @@
     </ul>
     <div class="index container">
       <div class="card" v-for="post in posts" :key="post.id">
-        <div class="card-content">
-          <!-- <a href="#" data-target="dropdown1">
+        <router-link :to="{name: 'PostDetail', params:{post_id:post.id}}">
+          <div class="card-content">
+            <!-- <a href="#" data-target="dropdown1">
           <i class="material-icons edit" @click="editPost(post.id)">edit</i>
         </a>
-          <i class="material-icons delete" @click="deletePost(post.id)">delete</i>-->
-          <h4 class="category indigo-text">{{ post.category }}</h4>
-          <h2 class="title indigo-text">{{ post.title }}</h2>
-          <p class="indigo-text">{{ post.content }}</p>
-          <ul class="tags">
-            <li v-for="(tag, index) in post.tags" :key="index">
-              <span class="chip">{{ tag.tagName }}</span>
-            </li>
-          </ul>
-        </div>
+            <i class="material-icons delete" @click="deletePost(post.id)">delete</i>-->
+            <h4 class="category indigo-text">{{ post.category }}</h4>
+            <h2 class="title indigo-text">{{ post.title }}</h2>
+            <p class="indigo-text">{{ post.content }}</p>
+            <ul class="tags">
+              <li v-for="(tag, index) in post.tags" :key="index">
+                <span class="chip">{{ tag.tagName }}</span>
+              </li>
+            </ul>
+          </div>
+        </router-link>
       </div>
     </div>
   </div>
