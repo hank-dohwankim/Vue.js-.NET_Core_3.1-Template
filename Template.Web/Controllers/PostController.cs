@@ -83,7 +83,7 @@ namespace Template.Web.Controllers
         public ActionResult UpdatePost(int postId, [FromBody] PostViewModel postDto)
         {
             _logger.LogInformation("Update post");
-            if (postDto == null || postId != postDto.Id)
+            if (postDto == null /*|| postId != postId*/)
             {
                 return BadRequest(ModelState);
             }
@@ -96,7 +96,7 @@ namespace Template.Web.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return CreatedAtRoute("GetPostById", new { PostId = postObj.Id }, postObj);
+            return CreatedAtRoute("GetPostById", new { PostId = postId }, postObj);
         }
 
 

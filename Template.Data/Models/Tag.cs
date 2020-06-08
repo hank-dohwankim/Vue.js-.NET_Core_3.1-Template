@@ -12,7 +12,7 @@ namespace Template.Data.Models
         public int Id { get; set; }
         [Required]
         public string TagName { get; set; }
-        [JsonIgnore]
-        public virtual Post Post { get; set; }
+        //[JsonIgnore]
+        //public virtual Post Post { get; set; }
     }
 }

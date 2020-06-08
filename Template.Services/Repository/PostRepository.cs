@@ -24,7 +24,7 @@ namespace Template.Services.Repository
             {
                 var newPost = new Post
                 {
-                    Category = post.Category,
+                    Category = post.Category, 
                     Location = post.Location,
                     Tags = post.Tags,
                     CreatedOn = DateTime.UtcNow,
@@ -226,13 +226,14 @@ namespace Template.Services.Repository
               .Include(post => post.User)
               .Include(post => post.Tags)
               .Include(post => post.Replies).ThenInclude(reply => reply.User)
-              .Include(post => post.Category).ToListAsync();
+              //.Include(post => post.Category)
+              .ToListAsync();
         }
 
         public Post GetPostById(int postId)
         {
             return _db.Posts.Where(post => post.Id == postId)
-                  .Include(post => post.Category)
+                  //.Include(post => post.Category)
                   .Include(post => post.User)
                   .Include(post => post.Tags)
                   .Include(post => post.Replies)

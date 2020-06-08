@@ -36,8 +36,8 @@
           v-model="tagName"
         />
         <div class="container-tags">
-          <div class="tagName-chip" v-for="(tagName, index) in tags" :key="index">
-            <div class="label">{{tagName}}</div>
+          <div class="tagName-chip" v-for="(tag, index) in tags" :key="index">
+            <div class="label">{{tag.tagName}}</div>
             <div class="btn-remove" @click="tags.splice(index, 1)">X</div>
           </div>
         </div>
@@ -73,7 +73,6 @@ export default {
     AddPost() {
       if (this.title) {
         this.feedback = null;
-        console.log(this.title, this.content, this.tags);
         this.$axios
           .post(
             "https://localhost:44371/api/post",
@@ -92,10 +91,13 @@ export default {
       } else {
         this.feedback = "제목을 입력해 주십시오.";
       }
+      console.log(this.title, this.content, this.tags);
     },
     AddTag() {
       if (this.tagName) {
-        this.tags.push(this.tagName);
+        var tag = { tagName: null };
+        tag.tagName = this.tagName;
+        this.tags.push(tag);
         this.tags = this.tags.filter(
           (el, index, arr) => arr.indexOf(el) === index
           // this.feedback = "d";
@@ -108,8 +110,8 @@ export default {
       } else {
         this.feedback = "태그를 입력하세요.";
       }
-    },
-    AddLocation() {}
+    }
+    // AddLocation() {}
   }
 };
 </script>
