@@ -44,13 +44,15 @@
         </div>
       </div>
       <div class="btnGroup">
+        <router-link :to="{name: 'PostDetail'}">
+          <div class="field center-align">
+            <p v-if="feedback" class="red-text">{{feedback}}</p>
+            <div v-on:click="DeletePost" class="btn blue">돌아가기</div>
+          </div>
+        </router-link>
         <div class="field center-align">
           <p v-if="feedback" class="red-text">{{feedback}}</p>
-          <div v-on:click="EditPost" class="btn green">수정</div>
-        </div>
-        <div class="field center-align">
-          <p v-if="feedback" class="red-text">{{feedback}}</p>
-          <div v-on:click="DeletePost" class="btn pink">삭제</div>
+          <div v-on:click="EditPost" class="btn green">수정완료</div>
         </div>
       </div>
     </form>

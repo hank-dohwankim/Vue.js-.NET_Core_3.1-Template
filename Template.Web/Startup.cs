@@ -33,7 +33,9 @@ namespace Template.Web
             {
                 options.EnableDetailedErrors();
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-            });
+            }); 
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddCors();
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -51,10 +53,10 @@ namespace Template.Web
             }).AddXmlDataContractSerializerFormatters();
 
             services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IAppUserRepository, ApplicationUserService>();
             services.AddAutoMapper(typeof(PostMapper));
             //services.AddScoped<ICategory, CategoryService>();
             //services.AddScoped<IPostReply, PostReplyService>();
-            //services.AddScoped<IApplicationUser, userservi>();
 
             services.AddRazorPages();
         }

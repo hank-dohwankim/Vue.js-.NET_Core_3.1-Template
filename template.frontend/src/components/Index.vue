@@ -1,6 +1,9 @@
 <template>
   <div>
     <ul class="btnList container">
+      <li>데스크탑</li>
+      <li>웹페이지</li>
+      <li>모바일</li>
       <li>
         <router-link :to="{name: 'AddPost'}">
           <div id="btnAddPost" class="btn waves-effect waves-light">

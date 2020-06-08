@@ -105,12 +105,12 @@ namespace Template.Web.Controllers
         public IActionResult DeletePost(int postId)
         {
             _logger.LogInformation("Delete post");
-            if (_postRepository.GetPostById(postId) == null)
+
+            var postObj = _postRepository.GetPostById(postId);
+            if (postObj == null)
             {
                 return NotFound();
             }
-
-            var postObj = _postRepository.GetPostById(postId);
 
             if (_postRepository.DeletePost(postObj) == null)
             {

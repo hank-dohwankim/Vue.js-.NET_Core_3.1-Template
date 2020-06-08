@@ -122,8 +122,6 @@ namespace Template.Services.Repository
         {
             try
             {
-                _db.PostReplies.Add(reply);
-
                 var newReply = new PostReply
                 {
                     Id = reply.Id,

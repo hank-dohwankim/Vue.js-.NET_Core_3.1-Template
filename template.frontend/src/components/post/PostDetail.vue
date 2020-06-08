@@ -1,5 +1,21 @@
 <template>
-  <div v-if="post" class="edit-post container">
+  <div v-if="post" class="post-detail container">
+    <div class="btnGroup">
+      <router-link :to="{name: 'Index'}">
+        <div class="field center-align">
+          <div v-on:click="Index" class="btn blue">뒤로가기</div>
+        </div>
+      </router-link>
+      <router-link :to="{name: 'EditPost'}">
+        <div class="field center-align">
+          <div v-on:click="EditPost" class="btn green">수정</div>
+        </div>
+      </router-link>
+      <div class="field center-align">
+        <p v-if="feedback" class="red-text">{{feedback}}</p>
+        <div v-on:click="DeletePost" class="btn pink">삭제</div>
+      </div>
+    </div>
     <form @submit.prevent="EditPost">
       <div class="field title">
         <label for="title">제목 :</label>
@@ -27,29 +43,19 @@
       </div>
       <div class="field add-tagName">
         <label for="add-tagName">태그 :</label>
-        <input
-          type="text"
-          name="add-tagName"
-          @keydown.space.prevent="AddTag"
-          @keydown.enter.prevent="AddTag"
-          @keydown.tab.prevent="AddTag"
-          v-model="tagName"
-        />
         <div class="container-tags">
           <div class="tagName-chip" v-for="(tagName, index) in post.tags" :key="index">
             <div class="label">{{tagName.tagName}}</div>
-            <div class="btn-remove" @click="post.tags.splice(index, 1)">X</div>
           </div>
         </div>
       </div>
-      <div class="btnGroup">
-        <div class="field center-align">
-          <p v-if="feedback" class="red-text">{{feedback}}</p>
-          <div v-on:click="EditPost" class="btn green">수정</div>
-        </div>
-        <div class="field center-align">
-          <p v-if="feedback" class="red-text">{{feedback}}</p>
-          <div v-on:click="DeletePost" class="btn pink">삭제</div>
+
+      <div class="field reply">
+        <label for="reply">댓글 :</label>
+        <div class="container-reply">
+          <div class="reply-list" v-for="(reply, index) in post.replies" :key="index">
+            <div class="label">{{reply.content}}</div>
+          </div>
         </div>
       </div>
     </form>
@@ -76,15 +82,36 @@ export default {
       .get("https://localhost:44371/api/post/" + this.$route.params.post_id)
       .then(result => {
         this.post = result.data;
+        this.replies = post.replies;
         this.tags = post.tags;
-        console.log(this.tags);
+        console.log(this.replies);
       });
+  },
+  methods: {
+    DeletePost() {
+      if (this.post.title) {
+        this.feedback = null;
+        console.log(this.title, this.content, this.tags);
+        this.$axios
+          .delete(
+            "https://localhost:44371/api/post/" + this.$route.params.post_id,
+            { "content-type": "text/json" }
+          )
+          .then(() => {
+            this.$router.push({ name: "Index" }).catch(err => {
+              consoe.log(error.response);
+            });
+          });
+      } else {
+        this.feedback = "제목을 입력해 주십시오.";
+      }
+    }
   }
 };
 </script>
 
 <style scoped>
-.edit-post {
+.post-detail {
   margin-top: 60px;
   padding: 20px;
   max-width: 500px;
