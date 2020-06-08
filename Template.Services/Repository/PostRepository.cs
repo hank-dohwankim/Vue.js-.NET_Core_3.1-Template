@@ -25,6 +25,7 @@ namespace Template.Services.Repository
                 var newPost = new Post
                 {
                     Category = post.Category,
+                    Location = post.Location,
                     Tags = post.Tags,
                     CreatedOn = DateTime.UtcNow,
                     Content = post.Content,
@@ -62,6 +63,7 @@ namespace Template.Services.Repository
                 var newPost = new Post
                 {
                     Category = post.Category,
+                    Location = post.Location,
                     Tags = post.Tags,
                     CreatedOn = DateTime.UtcNow,
                     Content = post.Content,

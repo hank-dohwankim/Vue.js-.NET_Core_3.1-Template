@@ -16,6 +16,7 @@ namespace Template.Data.Models
         public string Title { get; set; }
         [Required]
         public string Content { get; set; }
+        public string Location { get; set; }
         public bool IsComplete { get; set; }
 
         public virtual ApplicationUser User { get; set; }

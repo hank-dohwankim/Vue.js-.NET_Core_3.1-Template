@@ -21,9 +21,13 @@
           <i class="material-icons edit" @click="editPost(post.id)">edit</i>
         </a>
             <i class="material-icons delete" @click="deletePost(post.id)">delete</i>-->
-            <h4 class="category indigo-text">{{ post.category }}</h4>
+            <h4 class="category indigo-text">{{ post.category.title }}</h4>
             <h2 class="title indigo-text">{{ post.title }}</h2>
             <p class="indigo-text">{{ post.content }}</p>
+            <div class="location">
+              <i class="material-icons">location_on</i>
+              {{post.location}}
+            </div>
             <ul class="tags">
               <li v-for="(tag, index) in post.tags" :key="index">
                 <span class="chip">{{ tag.tagName }}</span>
@@ -109,5 +113,10 @@ export default {
 .btnList #btnAddPost {
   margin: 30px 0px 20px 0px;
   float: right;
+}
+
+.location {
+  margin-top: 10px;
+  display: inline-block;
 }
 </style>

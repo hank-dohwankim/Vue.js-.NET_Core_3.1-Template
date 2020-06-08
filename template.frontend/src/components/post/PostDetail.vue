@@ -49,7 +49,6 @@
           </div>
         </div>
       </div>
-
       <div class="field reply">
         <label for="reply">댓글 :</label>
         <div class="container-reply">
@@ -58,13 +57,18 @@
           </div>
         </div>
       </div>
+      <!-- <reply :val="post" /> -->
     </form>
   </div>
 </template>
 
 <script>
+import reply from "./Reply";
 export default {
   name: "PostDetail",
+  components: {
+    reply: reply
+  },
   data() {
     return {
       post: null,
