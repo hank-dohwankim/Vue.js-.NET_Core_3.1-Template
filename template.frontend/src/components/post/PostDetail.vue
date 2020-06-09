@@ -44,12 +44,20 @@
           </div>
         </div>
       </div>
-      <div class="field reply">
-        <label for="reply">댓글 :</label>
+      <p>댓글 X개</p>
+      <div class="field-reply">
         <div class="container-reply">
-          <div class="reply-list" v-for="(reply, index) in post.replies" :key="index">
-            <div class="label-content">{{reply.content}}</div>
-            <div class="label-createdOn">{{reply.createdOn}}</div>
+          <div class="repy-user-info">
+            <p>UserId</p>
+          </div>
+          <div class="reply-comment" v-for="(reply, index) in post.replies" :key="index">
+            <p class="reply-content">{{reply.content}}</p>
+            <p class="reply-createdOn">{{reply.creatdOn}}</p>
+          </div>
+          <div class="btn-reply-delete">
+            <p>
+              <i class="material-icons">delete</i>
+            </p>
           </div>
         </div>
       </div>
@@ -112,6 +120,7 @@ export default {
 <style scoped>
 .post-detail {
   margin-top: 60px;
+  margin-bottom: 100px;
   padding: 20px;
   max-width: 500px;
 }
@@ -144,5 +153,18 @@ export default {
 .btnGroup {
   text-align: center;
   display: inline;
+}
+.container-reply {
+  border-bottom: 2px solid #dfdfdf;
+  margin: auto;
+  float: left;
+  display: inline-flex;
+}
+.field-reply {
+  border-top: 3px solid #dfdfdf;
+}
+.reply-content {
+  margin-left: 50px;
+  margin-right: 250px;
 }
 </style>

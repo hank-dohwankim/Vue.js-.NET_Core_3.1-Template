@@ -26,7 +26,7 @@
             <p class="indigo-text">{{ post.content }}</p>
             <div class="location">
               <i class="material-icons">location_on</i>
-              {{post.location}}
+              <p>{{post.location}}</p>
             </div>
             <ul class="tags">
               <li v-for="(tag, index) in post.tags" :key="index">
@@ -70,6 +70,7 @@ export default {
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 30px;
   margin-top: 60px;
+  margin-bottom: 100px;
 }
 
 .index .card {
@@ -89,8 +90,9 @@ export default {
 }
 
 .index .tags {
-  margin: 30px auto;
-  margin-bottom: 0;
+  margin: 10px auto;
+  margin-top: 10px;
+  margin-bottom: -10px;
 }
 .index .tags li {
   display: inline-block;
@@ -116,8 +118,9 @@ export default {
 }
 
 .location {
-  margin-top: 10px;
+  margin-top: 30px;
   display: inline-block;
   text-transform: uppercase;
+  display: inline-flex;
 }
 </style>
