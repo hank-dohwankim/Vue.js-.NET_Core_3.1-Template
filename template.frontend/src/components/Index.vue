@@ -21,7 +21,7 @@
           <i class="material-icons edit" @click="editPost(post.id)">edit</i>
         </a>
             <i class="material-icons delete" @click="deletePost(post.id)">delete</i>-->
-            <!-- <h4 class="category indigo-text">{{ post.category.categName }}</h4> -->
+            <h4 class="category indigo-text">{{ post.category.categName }}</h4>
             <h2 class="title indigo-text">{{ post.title }}</h2>
             <p class="indigo-text">{{ post.content }}</p>
             <div class="location">
@@ -118,5 +118,6 @@ export default {
 .location {
   margin-top: 10px;
   display: inline-block;
+  text-transform: uppercase;
 }
 </style>

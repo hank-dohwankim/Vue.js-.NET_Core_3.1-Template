@@ -21,22 +21,17 @@
         <label for="title">제목 :</label>
         <input type="text" name="title" v-model="post.title" />
       </div>
+      <div class="field category">
+        <label for="category">카테고리 :</label>
+        <input type="text" name="category" v-model="post.category" />
+      </div>
       <div class="field content">
         <label for="content">의뢰내용 :</label>
         <input type="text" name="content" v-model="post.content" />
       </div>
-      <div v-for="(location, index) in locations" :key="index">
-        <div class="field add-location">
-          <label for="add-location">지역 :</label>
-          <input
-            type="text"
-            name="location"
-            @keydown.space.prevent="AddLocation"
-            @keydown.enter.prevent="AddLocation"
-            @keydown.tab.prevent="AddLocation"
-            v-model="locations[index]"
-          />
-        </div>
+      <div class="field location">
+        <label for="location">Location :</label>
+        <input class="location-input" type="text" name="location" v-model="post.location" />
       </div>
       <div v-for="(tagName, index) in post.tags" :key="index">
         <label for="tagName"></label>
@@ -53,7 +48,8 @@
         <label for="reply">댓글 :</label>
         <div class="container-reply">
           <div class="reply-list" v-for="(reply, index) in post.replies" :key="index">
-            <div class="label">{{reply.content}}</div>
+            <div class="label-content">{{reply.content}}</div>
+            <div class="label-createdOn">{{reply.createdOn}}</div>
           </div>
         </div>
       </div>
@@ -76,8 +72,9 @@ export default {
       content: null,
       tagName: null,
       tags: [],
+      category: {},
+      categName: null,
       location: null,
-      locations: [],
       feedback: null
     };
   },
@@ -86,10 +83,8 @@ export default {
       .get("https://localhost:44371/api/post/" + this.$route.params.post_id)
       .then(result => {
         this.post = result.data;
-        this.replies = post.replies;
-        this.tags = post.tags;
-        console.log(this.replies);
       });
+    console.log(post);
   },
   methods: {
     DeletePost() {

@@ -24,7 +24,7 @@ namespace Template.Services.Repository
             {
                 var newPost = new Post
                 {
-                    Category = post.Category, 
+                    CategoryId = post.Category.Id,
                     Location = post.Location,
                     Tags = post.Tags,
                     CreatedOn = DateTime.UtcNow,
@@ -32,6 +32,7 @@ namespace Template.Services.Repository
                     Title = post.Title,
                     User = post.User
                 };
+
 
                 _db.Posts.Add(newPost);
                 _db.SaveChanges();
@@ -226,7 +227,7 @@ namespace Template.Services.Repository
               .Include(post => post.User)
               .Include(post => post.Tags)
               .Include(post => post.Replies).ThenInclude(reply => reply.User)
-              //.Include(post => post.Category)
+              .Include(post => post.Category)
               .ToListAsync();
         }
 

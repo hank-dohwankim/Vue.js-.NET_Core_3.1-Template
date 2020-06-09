@@ -16,12 +16,13 @@ namespace Template.Data.Models
         public string Title { get; set; }
         [Required]
         public string Content { get; set; }
+        public int CategoryId { get; set; }
         public string Location { get; set; }
         public bool IsComplete { get; set; }
         public List<Tag> Tags { get; set; }
 
         public virtual ApplicationUser User { get; set; }
-        public virtual Category Category { get; set; } 
+        public virtual Category Category { get; set; }
         //public virtual IEnumerable<Tag> Tags { get; set; }
         public virtual IEnumerable<PostReply> Replies { get; set; }
     }

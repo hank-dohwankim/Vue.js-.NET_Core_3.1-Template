@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.Json.Serialization;
+using System.Linq;
+using System.Threading.Tasks;
+using Template.Data.Models;
 
-namespace Template.Data.Models
+namespace Template.Web.ViewModels
 {
-    public class Category
+    public class CategoryViewModel
     {
         [Key]
         public int Id { get; set; }
@@ -15,4 +16,3 @@ namespace Template.Data.Models
         public IEnumerable<Post> Posts { get; set; }
     }
 }
-

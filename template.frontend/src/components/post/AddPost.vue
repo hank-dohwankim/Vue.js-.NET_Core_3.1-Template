@@ -9,18 +9,13 @@
         <label for="content">의뢰내용 :</label>
         <input type="text" name="content" v-model="content" />
       </div>
-      <div v-for="(location, index) in locations" :key="index">
-        <div class="field add-location">
-          <label for="add-location">지역 :</label>
-          <input
-            type="text"
-            name="location"
-            @keydown.space.prevent="AddLocation"
-            @keydown.enter.prevent="AddLocation"
-            @keydown.tab.prevent="AddLocation"
-            v-model="locations[index]"
-          />
-        </div>
+      <div class="field category">
+        <label for="category">카테고리 :</label>
+        <input type="text" name="category" v-model="category.id" />
+      </div>
+      <div class="field location">
+        <label for="location">Location :</label>
+        <input class="location-input" type="text" name="location" v-model="location" />
       </div>
       <div v-for="(tagName, index) in tags" :key="index">
         <label for="tagName"></label>
@@ -59,8 +54,9 @@ export default {
       content: null,
       tagName: null,
       tags: [],
+      category: {},
+      id: null,
       location: null,
-      locations: [],
       feedback: null
     };
   },
@@ -71,6 +67,7 @@ export default {
   },
   methods: {
     AddPost() {
+      // this.category.id = 4;
       if (this.title) {
         this.feedback = null;
         this.$axios
@@ -79,6 +76,8 @@ export default {
             {
               title: this.title,
               content: this.content,
+              category: this.category,
+              location: this.location,
               tags: this.tags
             },
             { "content-type": "text/json" }

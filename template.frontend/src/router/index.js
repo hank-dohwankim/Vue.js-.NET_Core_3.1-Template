@@ -26,6 +26,16 @@ export default new Router({
       path: "/post-detail/:post_id",
       name: "PostDetail",
       component: () => import("@/components/post/PostDetail")
+    },
+    {
+      path: "/login",
+      name: "Login",
+      component: () => import("@/components/authentication/Login")
+    },
+    {
+      path: "/register",
+      name: "Register",
+      component: () => import("@/components/authentication/Register")
     }
   ]
 });

@@ -24,10 +24,15 @@
       </div>
       <ul id="nav-mobile" class="right hid-on-med-and-down">
         <li>
-          <a href="#">Login</a>
+          <router-link :to="{name: 'Login'}">
+            <div>Login</div>
+          </router-link>
         </li>
         <li>
-          <a href="#">Register</a>
+          <router-link :to="{name: 'Register'}">
+            <!-- <router-link path="/"> -->
+            <div>Register</div>
+          </router-link>
         </li>
       </ul>
     </div>
