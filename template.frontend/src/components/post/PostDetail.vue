@@ -60,7 +60,8 @@ import reply from "./Reply";
 export default {
   name: "PostDetail",
   components: {
-    reply: reply
+    // Index: Index
+    // reply: reply
   },
   data() {
     return {
@@ -73,7 +74,8 @@ export default {
       category: {},
       categName: null,
       location: null,
-      feedback: null
+      feedback: null,
+      result: null
     };
   },
   created() {
@@ -85,6 +87,13 @@ export default {
     console.log(post);
   },
   methods: {
+    GetPostById(postId) {
+      this.$axios
+        .get("https://localhost:44371/api/post/" + postId)
+        .then(result => {
+          this.post = result.data;
+        });
+    },
     DeletePost() {
       if (this.post.title) {
         this.feedback = null;
@@ -104,6 +113,7 @@ export default {
       }
     },
     DeleteReply: function(replyObj) {
+      var _this = this;
       console.log(replyObj[0].id);
       this.$axios
         .delete(
@@ -113,12 +123,16 @@ export default {
             replyObj[0].id,
           { "content-type": "text/json" }
         )
-        .then(() => {
-          this.$router.push({ name: "PostDetail" }).catch(err => {
-            consoe.log(error.response);
-          });
+        .then(function(response) {
+          console.log(response.data);
+          _this.GetPostById(response.data.id); // 이해 안감. 왜지?
         });
-      location.reload(); // How to delete reply without page reloading?
+      // .then(() => {
+      //   this.$router.push({ name: "PostDetail" }).catch(err => {
+      //     console.log(err.response);
+      //   });
+      // });
+      // location.reload(); // How to delete reply without page reloading?
     }
   }
 };

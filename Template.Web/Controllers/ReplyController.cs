@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.JsonPatch.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -59,7 +60,7 @@ namespace Template.Web.Controllers
                 return NotFound();
             }
 
-            var replyDelObj = _postRepository.DeleteReply(replyId);
+            var replyDelObj =  _postRepository.DeleteReply(replyId);
 
             if (replyDelObj == null)
             {
@@ -69,7 +70,7 @@ namespace Template.Web.Controllers
 
             var postObj = _postRepository.GetPostById(postId);
 
-            return RedirectToAction("GetPostById", postObj);
+            return Ok(postObj);
         }
         private PostReply BuildReply(ReplyViewModel model, ApplicationUser user, int postId)
         {
