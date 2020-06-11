@@ -48,13 +48,7 @@ export default {
       posts: []
     };
   },
-  methods: {
-    // deletePost(id) {
-    //   this.posts = this.posts.filter(post => {
-    //     return post.id != id;
-    //   });
-    // }
-  },
+  methods: {},
   mounted() {
     this.$axios.get("https://localhost:44371/api/post").then(result => {
       console.log(result);

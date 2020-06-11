@@ -34,6 +34,7 @@ namespace Template.Web
                 options.EnableDetailedErrors();
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             }); 
+            services.AddControllersWithViews();
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddCors();

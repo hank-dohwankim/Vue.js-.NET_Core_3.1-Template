@@ -2,18 +2,15 @@
   <div v-if="post" class="post-detail container">
     <div class="btnGroup">
       <router-link :to="{name: 'Index'}">
-        <div class="field center-align">
-          <div v-on:click="Index" class="btn blue">뒤로가기</div>
-        </div>
+        <div v-on:click="Index" class="btn blue">뒤로가기</div>
       </router-link>
-      <router-link :to="{name: 'EditPost'}">
-        <div class="field center-align">
+      <div class="btn-modify">
+        <router-link :to="{name: 'EditPost'}">
           <div v-on:click="EditPost" class="btn green">수정</div>
+        </router-link>
+        <div class="field center-align">
+          <button v-on:click="DeletePost" class="btn pink">삭제</button>
         </div>
-      </router-link>
-      <div class="field center-align">
-        <p v-if="feedback" class="red-text">{{feedback}}</p>
-        <div v-on:click="DeletePost" class="btn pink">삭제</div>
       </div>
     </div>
     <form @submit.prevent="EditPost">
@@ -30,35 +27,27 @@
         <input type="text" name="content" v-model="post.content" />
       </div>
       <div class="field location">
-        <label for="location">Location :</label>
-        <input class="location-input" type="text" name="location" v-model="post.location" />
+        <label for="location">지역 :</label>
+        <input type="text" name="location" v-model="post.location" />
       </div>
-      <div v-for="(tagName, index) in post.tags" :key="index">
-        <label for="tagName"></label>
-      </div>
-      <div class="field add-tagName">
+      <div class="tag-list">
         <label for="add-tagName">태그 :</label>
-        <div class="container-tags">
-          <div class="tagName-chip" v-for="(tagName, index) in post.tags" :key="index">
-            <div class="label">{{tagName.tagName}}</div>
-          </div>
+        <div class="tagName-chip" v-for="(tagName, index) in post.tags" :key="index">
+          <div class="label">{{tagName.tagName}}</div>
         </div>
       </div>
       <p>댓글 X개</p>
       <div class="field-reply">
-        <div class="container-reply">
-          <div class="repy-user-info">
+        <!-- <div class="repy-user-info">
             <p>UserId</p>
-          </div>
-          <div class="reply-comment" v-for="(reply, index) in post.replies" :key="index">
-            <p class="reply-content">{{reply.content}}</p>
-            <p class="reply-createdOn">{{reply.creatdOn}}</p>
-          </div>
-          <div class="btn-reply-delete">
-            <p>
-              <i class="material-icons">delete</i>
-            </p>
-          </div>
+        </div>-->
+        <div class="container-reply" v-for="(reply, index) in post.replies" :key="index">
+          <p class="reply-userId">UserId</p>
+          <p class="reply-content">{{reply.content}}</p>
+          <p class="reply-createdOn">{{reply.creatdOn}}</p>
+          <p class="btn-reply-delete" v-on:click="DeleteReply(post.replies)">
+            <i class="material-icons">delete</i>
+          </p>
         </div>
       </div>
       <!-- <reply :val="post" /> -->
@@ -80,6 +69,7 @@ export default {
       content: null,
       tagName: null,
       tags: [],
+      replies: [],
       category: {},
       categName: null,
       location: null,
@@ -112,6 +102,23 @@ export default {
       } else {
         this.feedback = "제목을 입력해 주십시오.";
       }
+    },
+    DeleteReply: function(replyObj) {
+      console.log(replyObj[0].id);
+      this.$axios
+        .delete(
+          "https://localhost:44371/api/post/" +
+            this.$route.params.post_id +
+            "/reply/" +
+            replyObj[0].id,
+          { "content-type": "text/json" }
+        )
+        .then(() => {
+          this.$router.push({ name: "PostDetail" }).catch(err => {
+            consoe.log(error.response);
+          });
+        });
+      location.reload(); // How to delete reply without page reloading?
     }
   }
 };
@@ -156,15 +163,42 @@ export default {
 }
 .container-reply {
   border-bottom: 2px solid #dfdfdf;
-  margin: auto;
-  float: left;
-  display: inline-flex;
+  display: inline-grid;
+  grid-template-columns: 1fr 9fr 5fr 1fr;
+}
+.container-reply p {
+  margin: 10px 10px 5px 5px;
 }
 .field-reply {
   border-top: 3px solid #dfdfdf;
 }
-.reply-content {
-  margin-left: 50px;
-  margin-right: 250px;
+
+.btnGroup {
+  display: inline-flex;
+  margin-bottom: 20px;
+}
+.btnGroup div {
+  margin-left: 10px;
+}
+
+.btn-modify {
+  display: inline-flex;
+  margin-bottom: 20px;
+}
+
+.tag-list {
+  display: inline-flex;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  vertical-align: middle;
+}
+
+.tag-list label {
+  margin-top: 5px;
+}
+
+.tagName-chip {
+  margin: 0;
+  margin-left: 15px;
 }
 </style>

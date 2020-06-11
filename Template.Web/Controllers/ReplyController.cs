@@ -45,6 +45,32 @@ namespace Template.Web.Controllers
             return RedirectToAction("GetPosts", "Post", new { id = postId });
         }
 
+        [HttpDelete("/api/post/{postId:int}/reply/{replyId:int}", Name = "DeleteReply")]
+        [AllowAnonymous] // Delete in production
+        public async Task<IActionResult> DeleteReply(int postId, int replyId)
+        {
+            _logger.LogInformation("Delete reply");
+
+            var userId = _userManager.GetUserId(User);
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (replyId == null)
+            {
+                return NotFound();
+            }
+
+            var replyDelObj = _postRepository.DeleteReply(replyId);
+
+            if (replyDelObj == null)
+            {
+                ModelState.AddModelError("", $"Somting went wrong while updating {replyDelObj.Data}");
+                return StatusCode(500, ModelState);
+            }
+
+            var postObj = _postRepository.GetPostById(postId);
+
+            return RedirectToAction("GetPostById", postObj);
+        }
         private PostReply BuildReply(ReplyViewModel model, ApplicationUser user, int postId)
         {
             var post = _postRepository.GetPostById(postId);

@@ -28,6 +28,7 @@ namespace Template.Services.Repository.IRepository
         ServiceResponse<Post> DeletePost(Post post);
         ServiceResponse<PostReply> AddReply(PostReply reply);
         ServiceResponse<PostReply> EditReply(PostReply reply);
-        ServiceResponse<PostReply> DeleteReply(PostReply reply);
+        //ServiceResponse<PostReply> DeleteReply(PostReply reply);
+        ServiceResponse<PostReply> DeleteReply(int replyId);
     }
 }

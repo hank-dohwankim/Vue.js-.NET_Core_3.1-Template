@@ -194,11 +194,12 @@ namespace Template.Services.Repository
                 };
             }
         }
-        public ServiceResponse<PostReply> DeleteReply(PostReply reply)
+        public ServiceResponse<PostReply> DeleteReply(int replyId)
         {
+            var reply = _db.PostReplies.FirstOrDefault(x => x.Id == replyId);
             try
             {
-                _db.PostReplies.Remove(reply);
+                _db.Remove(reply);
                 _db.SaveChanges();
 
                 return new ServiceResponse<PostReply>
