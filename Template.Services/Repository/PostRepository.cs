@@ -196,7 +196,7 @@ namespace Template.Services.Repository
         }
         public ServiceResponse<PostReply> DeleteReply(int replyId)
         {
-            var reply = _db.PostReplies.FirstOrDefault(x => x.Id == replyId);
+            var reply = _db.PostReplies.Find(replyId);
             try
             {
                 _db.Remove(reply);
@@ -235,7 +235,7 @@ namespace Template.Services.Repository
         public Post GetPostById(int postId)
         {
             return _db.Posts.Where(post => post.Id == postId)
-                  //.Include(post => post.Category)
+                  .Include(post => post.Category)
                   .Include(post => post.User)
                   .Include(post => post.Tags)
                   .Include(post => post.Replies)

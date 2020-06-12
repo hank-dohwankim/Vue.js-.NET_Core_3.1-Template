@@ -20,7 +20,7 @@
       </div>
       <div class="field category">
         <label for="category">카테고리 :</label>
-        <input type="text" name="category" v-model="post.category" />
+        <input type="text" name="category" v-model="post.category.categName" />
       </div>
       <div class="field content">
         <label for="content">의뢰내용 :</label>
@@ -58,7 +58,7 @@
         <p class="reply-userId">UserId</p>
         <p class="reply-content">{{reply.content}}</p>
         <p class="reply-createdOn">{{reply.creatdOn}}</p>
-        <p class="btn-reply-delete" v-on:click="DeleteReply(post.replies)">
+        <p class="btn-reply-delete" v-on:click="DeleteReply(post.replies[index])">
           <i class="material-icons">delete</i>
         </p>
       </div>
@@ -154,13 +154,13 @@ export default {
     },
     DeleteReply: function(replyObj) {
       var _this = this;
-      console.log(replyObj[0].id);
+      console.log(replyObj);
       this.$axios
         .delete(
           "https://localhost:44371/api/post/" +
             this.$route.params.post_id +
             "/reply/" +
-            replyObj[0].id,
+            replyObj.id,
           { "content-type": "text/json" }
         )
         .then(function(response) {
