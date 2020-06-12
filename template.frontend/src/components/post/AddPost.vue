@@ -25,7 +25,7 @@
         <input
           type="text"
           name="add-tagName"
-          @keydown.space.prevent="AddTag"
+          @keydown.188.prevent="AddTag"
           @keydown.enter.prevent="AddTag"
           @keydown.tab.prevent="AddTag"
           v-model="tagName"
