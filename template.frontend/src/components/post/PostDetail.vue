@@ -36,19 +36,31 @@
           <div class="label">{{tagName.tagName}}</div>
         </div>
       </div>
-      <p>댓글 X개</p>
+      <p>댓글 {{post.replies.length}}개</p>
       <div class="field-reply">
-        <!-- <div class="repy-user-info">
-            <p>UserId</p>
-        </div>-->
-        <div class="container-reply" v-for="(reply, index) in post.replies" :key="index">
-          <p class="reply-userId">UserId</p>
-          <p class="reply-content">{{reply.content}}</p>
-          <p class="reply-createdOn">{{reply.creatdOn}}</p>
-          <p class="btn-reply-delete" v-on:click="DeleteReply(post.replies)">
-            <i class="material-icons">delete</i>
-          </p>
+        <div class="btn-group-reply">
+          <input
+            id="reply-input"
+            class="input-add-reply"
+            type="text"
+            name="add-reply"
+            placeholder="댓글 추가..."
+            v-model="post.replies.content"
+          />
+          <button type="button" class="btn-reply-cancel" v-on:click="CrearReply()">취소</button>
+          <button type="button" class="btn-reply-add" v-on:click="AddReply(replyContent)">댓글</button>
         </div>
+      </div>
+      <!-- <div class="repy-user-info">
+            <p>UserId</p>
+      </div>-->
+      <div class="container-reply" v-for="(reply, index) in post.replies" :key="index">
+        <p class="reply-userId">UserId</p>
+        <p class="reply-content">{{reply.content}}</p>
+        <p class="reply-createdOn">{{reply.creatdOn}}</p>
+        <p class="btn-reply-delete" v-on:click="DeleteReply(post.replies)">
+          <i class="material-icons">delete</i>
+        </p>
       </div>
       <!-- <reply :val="post" /> -->
     </form>
@@ -75,7 +87,8 @@ export default {
       categName: null,
       location: null,
       feedback: null,
-      result: null
+      result: null,
+      replyContent: null
     };
   },
   created() {
@@ -112,6 +125,33 @@ export default {
         this.feedback = "제목을 입력해 주십시오.";
       }
     },
+    AddReply() {
+      var _this = this;
+      if (this.post.replies.content) {
+        this.feedback = null;
+        this.$axios
+          .post(
+            "https://localhost:44371/api/post/" +
+              this.$route.params.post_id +
+              "/reply/",
+            {
+              content: this.post.replies.content
+            },
+            { "content-type": "text/json" }
+          )
+          .then(function(response) {
+            console.log("Add reply response : " + response.data.id);
+            _this.post.replies.content = null;
+            console.log(
+              "Check reply content is null : " + _this.post.replies.content
+            );
+            _this.CrearReply();
+            _this.GetPostById(response.data.id); // 이해 안감. 왜지?
+          });
+      } else {
+        this.feedback = "댓글 내용을 입력해 주십시오.";
+      }
+    },
     DeleteReply: function(replyObj) {
       var _this = this;
       console.log(replyObj[0].id);
@@ -127,12 +167,9 @@ export default {
           console.log(response.data);
           _this.GetPostById(response.data.id); // 이해 안감. 왜지?
         });
-      // .then(() => {
-      //   this.$router.push({ name: "PostDetail" }).catch(err => {
-      //     console.log(err.response);
-      //   });
-      // });
-      // location.reload(); // How to delete reply without page reloading?
+    },
+    CrearReply() {
+      document.getElementById("reply-input").value = "";
     }
   }
 };
@@ -183,9 +220,6 @@ export default {
 .container-reply p {
   margin: 10px 10px 5px 5px;
 }
-.field-reply {
-  border-top: 3px solid #dfdfdf;
-}
 
 .btnGroup {
   display: inline-flex;
@@ -214,5 +248,25 @@ export default {
 .tagName-chip {
   margin: 0;
   margin-left: 15px;
+}
+
+/* Reply props */
+.btn-group-reply .btn-reply-add,
+.btn-reply-cancel {
+  float: right;
+  margin: 10px 0px 20px 15px;
+}
+
+/* .btn-reply-add,
+.btn-reply-cancel {
+  visibility: hidden;
+}
+
+.input-add-reply:focus ~ .btn-reply-add {
+  visibility: visible;
+} */
+
+.input-add-reply:focus ~ .btn-reply-cancel {
+  visibility: visible;
 }
 </style>

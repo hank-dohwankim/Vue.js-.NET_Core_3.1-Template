@@ -43,7 +43,7 @@ namespace Template.Web.Controllers
             _postRepository.AddReply(reply);
             //await _userService.UpdateUserRating(userId, typeof(PostReply));
 
-            return RedirectToAction("GetPosts", "Post", new { id = postId });
+            return Ok(reply.Post);
         }
 
         [HttpDelete("/api/post/{postId:int}/reply/{replyId:int}", Name = "DeleteReply")]
