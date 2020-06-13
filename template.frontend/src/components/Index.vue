@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="index-container">
     <!-- <ul class="btnList container">
       <li>데스크탑</li>
       <li>웹페이지</li>
@@ -131,5 +131,12 @@ export default {
   width: 70%;
   display: inline-block;
   text-align: right;
+}
+
+.index-container {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.4em;
+  max-width: 1280px;
+  margin: auto;
 }
 </style>

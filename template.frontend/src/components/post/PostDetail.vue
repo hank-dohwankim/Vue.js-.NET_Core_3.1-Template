@@ -56,6 +56,7 @@ export default {
       post: null,
       title: null,
       content: null,
+      createdOn: null,
       tagName: null,
       tags: [],
       replies: [],
@@ -102,7 +103,6 @@ export default {
       }
     },
     AddReply(content, onSuccess) {
-      var _this = this;
       if (content) {
         this.feedback = null;
         this.$axios
@@ -112,6 +112,7 @@ export default {
               "/reply/",
             {
               content
+              // createdOn
             },
             { "content-type": "text/json" }
           )

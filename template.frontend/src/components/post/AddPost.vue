@@ -9,7 +9,7 @@
         <label for="content">의뢰내용 :</label>
         <input type="text" name="content" v-model="content" />
       </div>
-      <div class="field category">
+      <div id="category" class="field category">
         <label for="category">카테고리 :</label>
         <select
           name="category"
@@ -50,7 +50,7 @@
           </div>
         </div>
       </div>
-      <div class="field center-align">
+      <div id="btn-submit" class="field center-align">
         <p v-if="feedback" class="red-text">{{feedback}}</p>
         <div v-on:click="AddPost" class="btn pink">제출하기</div>
       </div>
@@ -124,21 +124,26 @@ export default {
       console.log(this.title, this.content, this.tags);
     },
     AddTag() {
-      if (this.tagName) {
-        var tag = { tagName: null };
-        tag.tagName = this.tagName;
-        this.tags.push(tag);
-        this.tags = this.tags.filter(
-          (el, index, arr) => arr.indexOf(el) === index
-          // this.feedback = "d";
-        );
-        // arr = [1,1,2,3,1]
-        // index : [0,1,2,3,4]
-        // arr.indexOf(el): [0,0,2,3,0]
-        this.tagName = null;
-        this.feedback = null;
+      if (this.tags.length < 5) {
+        if (this.tagName) {
+          var tag = { tagName: null };
+          tag.tagName = this.tagName;
+          this.tags.push(tag);
+          // this.tags = this.tags.filter(
+          //   (el, index, arr) => arr.indexOf(el) === index
+          //   // this.feedback = "d";
+          // );
+          // arr = [1,1,2,3,1]
+          // index : [0,1,2,3,4]
+          // arr.indexOf(el): [0,0,2,3,0]
+          this.tagName = null;
+          this.feedback = null;
+        } else {
+          this.feedback = "태그를 입력하세요.";
+        }
       } else {
-        this.feedback = "태그를 입력하세요.";
+        this.feedback = "태그는 5개까지 입력이 가능합니다.";
+        this.tagName = null;
       }
     }
     // AddLocation() {}
@@ -177,5 +182,14 @@ export default {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+#category {
+  margin-bottom: 10px;
+}
+
+#btn-submit {
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 </style>

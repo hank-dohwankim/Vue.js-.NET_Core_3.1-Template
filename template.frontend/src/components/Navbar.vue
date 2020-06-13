@@ -5,7 +5,9 @@
         <ul id="nav-mobile" class="right hid-on-med-and-down">
           <router-link :to="{name: 'Index'}">
             <!-- <router-link path="/"> -->
-            <div>Home</div>
+            <div>
+              <i class="material-icons">home</i>Home
+            </div>
           </router-link>
         </ul>
       </div>

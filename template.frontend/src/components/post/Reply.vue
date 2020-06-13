@@ -27,7 +27,7 @@
         <div class="container-top">
           <div class="reply-userId">UserId</div>
           <!-- <div class="reply-createdOn">{{reply.creatdOn}}</div> -->
-          <div class="reply-createdOn">2020-06-12</div>
+          <div class="reply-createdOn">{{$moment(reply.createdOn).format('MM/DD/YYYY h:mm a')}}</div>
         </div>
         <div class="container-bottom">
           <div class="reply-content">{{reply.content}}</div>

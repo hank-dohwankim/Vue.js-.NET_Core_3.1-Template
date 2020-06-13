@@ -130,7 +130,7 @@ namespace Template.Services.Repository
                     Id = reply.Id,
                     Post = reply.Post,
                     Content = reply.Content,
-                    CreatedOn = DateTime.UtcNow,
+                    CreatedOn = DateTime.Now,
                     User = reply.User
                 };
 
