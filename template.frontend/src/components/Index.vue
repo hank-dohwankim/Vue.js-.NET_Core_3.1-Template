@@ -1,18 +1,23 @@
 <template>
   <div>
-    <ul class="btnList container">
+    <!-- <ul class="btnList container">
       <li>데스크탑</li>
       <li>웹페이지</li>
       <li>모바일</li>
       <li>
+        
+      </li>
+    </ul>-->
+    <div class="container-btn">
+      <div class="btn-wrapper">
         <router-link :to="{name: 'AddPost'}">
           <div id="btnAddPost" class="btn waves-effect waves-light">
             Add New Post
             <i class="material-icons right">send</i>
           </div>
         </router-link>
-      </li>
-    </ul>
+      </div>
+    </div>
     <div class="index container">
       <div class="card" v-for="post in posts" :key="post.id">
         <router-link :to="{name: 'PostDetail', params:{post_id:post.id}}">
@@ -58,7 +63,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .index {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -116,5 +121,15 @@ export default {
   display: inline-block;
   text-transform: uppercase;
   display: inline-flex;
+}
+.container-btn {
+  margin-top: 50px;
+  width: 100%;
+  text-align: center;
+}
+.btn-wrapper {
+  width: 70%;
+  display: inline-block;
+  text-align: right;
 }
 </style>

@@ -11,7 +11,20 @@
       </div>
       <div class="field category">
         <label for="category">카테고리 :</label>
-        <input type="text" name="category" v-model="category.id" />
+        <select
+          name="category"
+          style="display: block !important;"
+          @change="onCategorySelect"
+          v-model="selectedOption"
+        >
+          <option value="-1">선택</option>
+          <option
+            :value="option.id"
+            v-for="option in categoryOptions"
+            :key="option.id"
+          >{{option.label}}</option>
+        </select>
+        <!-- <input type="text" name="category" v-model="category.id" /> -->
       </div>
       <div class="field location">
         <label for="location">Location :</label>
@@ -50,10 +63,16 @@ export default {
   name: "AddPost",
   data() {
     return {
+      categoryOptions: [
+        { id: 4, label: "Desktop" },
+        { id: 5, label: "Mobile" },
+        { id: 6, label: "Web" }
+      ],
       title: null,
       content: null,
       tagName: null,
       tags: [],
+      selectedOption: -1,
       category: {},
       id: null,
       location: null,
@@ -66,6 +85,18 @@ export default {
     // );
   },
   methods: {
+    onCategorySelect(e) {
+      console.log(e, this.selectedOption);
+      let selected = this.categoryOptions.filter(
+        el => el.id == this.selectedOption
+      );
+      if (selected) {
+        this.category = selected[0];
+      } else {
+        this.category = {};
+      }
+      console.log(this.category);
+    },
     AddPost() {
       // this.category.id = 4;
       if (this.title) {
