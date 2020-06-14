@@ -1,45 +1,56 @@
 <template>
-  <div v-if="post" class="post-detail container">
-    <div class="btnGroup">
-      <router-link :to="{name: 'Index'}">
-        <i class="material-icons">keyboard_backspace</i>
-      </router-link>
-      <div class="btn-modify">
-        <router-link :to="{name: 'EditPost'}">
-          <i id="btn-edit" class="material-icons">edit</i>
+  <div class="container">
+    <div v-if="post" class="post-detail container">
+      <div class="btnGroup">
+        <router-link :to="{ name: 'Index' }">
+          <i class="material-icons">keyboard_backspace</i>
         </router-link>
-        <div class="field center-align">
-          <i id="btn-delete" class="material-icons" v-on:click="DeletePost">delete</i>
-          <!-- <button v-on:click="DeletePost" class="btn pink">삭제</button> -->
+        <div class="btn-modify">
+          <router-link :to="{ name: 'EditPost' }">
+            <i id="btn-edit" class="material-icons">edit</i>
+          </router-link>
+          <div class="field center-align">
+            <i id="btn-delete" class="material-icons" v-on:click="DeletePost"
+              >delete</i
+            >
+            <!-- <button v-on:click="DeletePost" class="btn pink">삭제</button> -->
+          </div>
         </div>
       </div>
+      <form @submit.prevent="EditPost">
+        <div class="field title">
+          <label>제목 :</label>
+          <div>{{ post.title }}</div>
+        </div>
+        <div class="field category">
+          <label>카테고리 :</label>
+          <div>{{ post.category.categName }}</div>
+        </div>
+        <div class="field content">
+          <label>의뢰내용 :</label>
+          <div>{{ post.content }}</div>
+        </div>
+        <div class="field location">
+          <label>지역 :</label>
+          <div>{{ post.location }}</div>
+        </div>
+        <div class="tag-list">
+          <label for="add-tagName">태그 :</label>
+          <div
+            class="tagName-chip"
+            v-for="(tagName, index) in post.tags"
+            :key="index"
+          >
+            <div class="label">{{ tagName.tagName }}</div>
+          </div>
+        </div>
+      </form>
+      <Reply
+        :replies="post.replies"
+        v-on:AddReply="AddReply"
+        v-on:DeleteReply="DeleteReply"
+      />
     </div>
-    <form @submit.prevent="EditPost">
-      <div class="field title">
-        <label>제목 :</label>
-        <div>{{post.title}}</div>
-      </div>
-      <div class="field category">
-        <label>카테고리 :</label>
-        <div>{{post.category.categName}}</div>
-      </div>
-      <div class="field content">
-        <label>의뢰내용 :</label>
-        <div>{{post.content}}</div>
-      </div>
-      <div class="field location">
-        <label>지역 :</label>
-        <div>{{post.location}}</div>
-      </div>
-      <div class="tag-list">
-        <label for="add-tagName">태그 :</label>
-        <div class="tagName-chip" v-for="(tagName, index) in post.tags" :key="index">
-          <div class="label">{{tagName.tagName}}</div>
-        </div>
-      </div>
-      <Reply :replies="post.replies" v-on:AddReply="AddReply" v-on:DeleteReply="DeleteReply" />
-      <!-- <reply :val="post" /> -->
-    </form>
   </div>
 </template>
 
@@ -157,7 +168,11 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  padding: 0 0;
+}
 .post-detail {
+  background: #fff;
   margin-top: 60px;
   margin-bottom: 100px;
   padding: 20px;

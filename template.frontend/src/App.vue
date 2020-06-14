@@ -18,4 +18,20 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Raleway", sans-serif;
+  background: #f5f5f5;
+  line-height: 1.8;
+}
+
+a {
+  text-decoration: none;
+}
+</style>

@@ -2,7 +2,7 @@
   <div>
     <p>
       <i class="material-icons">chat_bubble_outline</i>
-      댓글 {{replies.length}}개
+      댓글 {{ replies.length }}개
     </p>
     <div class="field-reply">
       <div class="btn-group-reply">
@@ -14,12 +14,24 @@
           placeholder="댓글 추가..."
           v-model="replyContent"
         />
-        <button type="button" class="btn-reply-cancel" v-on:click="replyContent = ''">취소</button>
+        <button
+          type="button"
+          class="btn-reply-cancel"
+          v-on:click="replyContent = ''"
+        >
+          취소
+        </button>
         <button
           type="button"
           class="btn-reply-add"
-          v-on:click="$emit('AddReply', replyContent, () => {replyContent = ''})"
-        >댓글</button>
+          v-on:click="
+            $emit('AddReply', replyContent, () => {
+              replyContent = '';
+            })
+          "
+        >
+          댓글
+        </button>
       </div>
     </div>
     <!-- <div class="repy-user-info">
@@ -29,10 +41,12 @@
       <div class="container-left">
         <div class="container-top">
           <div class="reply-userId">UserId</div>
-          <div class="reply-createdOn">{{$moment(reply.createdOn).format('MM/DD/YYYY h:mm a')}}</div>
+          <div class="reply-createdOn">
+            {{ $moment(reply.createdOn).format("MM/DD/YYYY h:mm a") }}
+          </div>
         </div>
         <div class="container-bottom">
-          <div class="reply-content">{{reply.content}}</div>
+          <div class="reply-content">{{ reply.content }}</div>
         </div>
       </div>
       <div class="container-right">
@@ -42,14 +56,18 @@
           width="16"
           height="auto"
           style="opacity:.8; cursor: pointer;"
-          @click="index == menuVisible ? menuVisible = -1 : menuVisible = index"
-        >more_vert</i>
+          @click="
+            index == menuVisible ? (menuVisible = -1) : (menuVisible = index)
+          "
+          >more_vert</i
+        >
         <transition name="fade">
           <div class="menu" v-if="menuVisible == index">
-            <div class="menu-el">
-              <i class="material-icons">edit</i> 수정
-            </div>
-            <div class="menu-el" v-on:click="$emit('DeleteReply', replies[index])">
+            <div class="menu-el"><i class="material-icons">edit</i> 수정</div>
+            <div
+              class="menu-el"
+              v-on:click="$emit('DeleteReply', replies[index])"
+            >
               <i class="material-icons">delete</i> 삭제
             </div>
           </div>
