@@ -1,6 +1,9 @@
 <template>
   <div>
-    <p>댓글 {{replies.length}}개</p>
+    <p>
+      <i class="material-icons">chat_bubble_outline</i>
+      댓글 {{replies.length}}개
+    </p>
     <div class="field-reply">
       <div class="btn-group-reply">
         <input
@@ -26,7 +29,6 @@
       <div class="container-left">
         <div class="container-top">
           <div class="reply-userId">UserId</div>
-          <!-- <div class="reply-createdOn">{{reply.creatdOn}}</div> -->
           <div class="reply-createdOn">{{$moment(reply.createdOn).format('MM/DD/YYYY h:mm a')}}</div>
         </div>
         <div class="container-bottom">
@@ -34,26 +36,24 @@
         </div>
       </div>
       <div class="container-right">
-        <div class="btn-reply-delete" ref="reply-menu-area">
-          <!-- <i class="material-icons">delete</i> -->
-          <img
-            src="@/assets/menu.png"
-            width="16"
-            height="auto"
-            style="opacity:.8; cursor: pointer;"
-            @click="index == menuVisible ? menuVisible = -1 : menuVisible = index"
-          />
-          <transition name="fade">
-            <div class="menu" v-if="menuVisible == index">
-              <div class="menu-el">
-                <i class="material-icons">edit</i> 수정
-              </div>
-              <div class="menu-el" v-on:click="$emit('DeleteReply', replies[index])">
-                <i class="material-icons">delete</i> 삭제
-              </div>
+        <i
+          class="material-icons"
+          id="menu-vert-dot"
+          width="16"
+          height="auto"
+          style="opacity:.8; cursor: pointer;"
+          @click="index == menuVisible ? menuVisible = -1 : menuVisible = index"
+        >more_vert</i>
+        <transition name="fade">
+          <div class="menu" v-if="menuVisible == index">
+            <div class="menu-el">
+              <i class="material-icons">edit</i> 수정
             </div>
-          </transition>
-        </div>
+            <div class="menu-el" v-on:click="$emit('DeleteReply', replies[index])">
+              <i class="material-icons">delete</i> 삭제
+            </div>
+          </div>
+        </transition>
       </div>
     </div>
   </div>
@@ -83,6 +83,7 @@ export default {
 </script>
 
 <style scoped>
+/* Reply Container */
 .btn-group-reply {
   text-align: right;
 }
@@ -110,6 +111,11 @@ export default {
   display: flex;
   align-items: center;
 }
+
+.container-top .reply-userId {
+  font-weight: 500;
+}
+
 .container-bottom {
   margin-top: 8px;
 }
@@ -118,10 +124,21 @@ export default {
   color: #cacaca;
   margin-left: 15px;
 }
+
+/* Reply Menu */
+#menu-vert-dot {
+  padding-top: 15px;
+  color: #a9a9a9;
+}
+
+#menu-vert-dot:hover {
+  color: #505050;
+}
+
 .menu {
   position: absolute;
-  top: 10px;
-  left: 20px;
+  top: 25px;
+  left: 25px;
   background-color: #fff;
   box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.2);
   width: max-content;
@@ -144,6 +161,9 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
+
+/* General Material Icons */
+
 .material-icons {
   vertical-align: middle;
 }

@@ -7,9 +7,14 @@
 
 <script>
 import Navbar from "./components/Navbar";
+import M from "materialize-css";
+
 export default {
   name: "App",
-  components: { Navbar }
+  components: { Navbar },
+  mounted() {
+    M.AutoInit();
+  }
 };
 </script>
 

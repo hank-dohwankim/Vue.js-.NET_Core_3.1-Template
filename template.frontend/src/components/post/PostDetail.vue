@@ -2,14 +2,15 @@
   <div v-if="post" class="post-detail container">
     <div class="btnGroup">
       <router-link :to="{name: 'Index'}">
-        <div class="btn blue">뒤로가기</div>
+        <i class="material-icons">keyboard_backspace</i>
       </router-link>
       <div class="btn-modify">
         <router-link :to="{name: 'EditPost'}">
-          <div class="btn green">수정</div>
+          <i id="btn-edit" class="material-icons">edit</i>
         </router-link>
         <div class="field center-align">
-          <button v-on:click="DeletePost" class="btn pink">삭제</button>
+          <i id="btn-delete" class="material-icons" v-on:click="DeletePost">delete</i>
+          <!-- <button v-on:click="DeletePost" class="btn pink">삭제</button> -->
         </div>
       </div>
     </div>
@@ -226,6 +227,32 @@ export default {
 .tagName-chip {
   margin: 0;
   margin-left: 15px;
+}
+
+.material-icons {
+  font-size: 2em;
+  color: #808080;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+#btn-delete {
+  margin-right: 0px;
+}
+
+.material-icons:hover {
+  font-size: 2em;
+  color: #303030;
+}
+
+#btn-edit:hover {
+  font-size: 2em;
+  color: green;
+}
+
+#btn-delete:hover {
+  font-size: 2em;
+  color: red;
 }
 
 /* Reply props */
