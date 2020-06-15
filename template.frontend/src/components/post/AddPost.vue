@@ -152,6 +152,10 @@ export default {
 </script>
 
 <style>
+.container {
+  background: #fff;
+}
+
 .add-post {
   margin-top: 60px;
   padding: 20px;

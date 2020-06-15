@@ -55,10 +55,10 @@ namespace Template.Web.Controllers
             var userId = _userManager.GetUserId(User);
             var user = await _userManager.FindByIdAsync(userId);
 
-            if (replyId == null)
-            {
-                return NotFound();
-            }
+            //if (replyId == null)
+            //{
+            //    return NotFound();
+            //}
 
             var replyDelObj =  _postRepository.DeleteReply(replyId);
 

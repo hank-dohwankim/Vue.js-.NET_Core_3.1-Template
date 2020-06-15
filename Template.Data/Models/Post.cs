@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -9,8 +10,13 @@ namespace Template.Data.Models
     public class Post
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+
         public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public DateTime CreatedOn { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime UpdatedOn { get; set; }
         [Required]
         public string Title { get; set; }
